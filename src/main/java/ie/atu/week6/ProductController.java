@@ -18,6 +18,8 @@ public class ProductController {
     public List<Product> newProduct(@RequestBody Product product){
 
         //Send it to do business logic
+        ProductService myService = new ProductService();
+        list = myService.addProduct(product);
         return list;
     }
 }
