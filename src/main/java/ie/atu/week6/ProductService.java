@@ -8,6 +8,11 @@ import java.util.List;
 @Service
 public class ProductService {
     private List<Product> myList = new ArrayList<>();
+
+    public List<Product> getAllProducts(){
+        return myList;
+    }
+
     public List<Product> addProduct(Product product){
 
         //Do business stuff like retrieving details from database, or generating files pdfs
