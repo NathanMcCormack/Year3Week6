@@ -1,6 +1,8 @@
 package ie.atu.week6;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,33 +26,26 @@ public class ProductController {
     }
 
     @PostMapping
-    public List<Product> newProduct(@RequestBody Product product){
+    public List<Product> newProduct(@RequestBody @Valid Product product){
 
         //Send it to do business logic
         list = myService.addProduct(product);
         return list;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<List> updateProduct(@PathVariable String id, @RequestBody Product updatedProduct){
+    @Autowired
+    private ProductService productService;
 
-        for(Product product : list){
-            if(product.getId().equals(id)){
-                list.remove(product);
-            }
-        }
-        list.add(updatedProduct);
-        return ResponseEntity.ok(list);
+    @PutMapping("/{id}")
+    public ResponseEntity<List<Product>> updateProduct(@PathVariable @Valid int id, @RequestBody @Valid Product updatedProduct) {
+        List<Product> updatedList = productService.updateProduct(id, updatedProduct);
+        return ResponseEntity.ok(updatedList);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<List> deleteProduct(@PathVariable String id){
-
-        for (Product product : list){
-            if (product.getId().equals(id)){
-                list.remove(product);
-            }
-        }
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<Product>> deleteProduct(@PathVariable int id) {
+        List<Product> updatedList = productService.deleteProduct(id);
+        return ResponseEntity.ok(updatedList);
     }
+
 }

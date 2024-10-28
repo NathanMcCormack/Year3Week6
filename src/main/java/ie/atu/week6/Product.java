@@ -2,6 +2,7 @@ package ie.atu.week6;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,14 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Product {
 
-    @NotBlank(message = "ID cannot be blank")
-    private String id;
+    @NotNull
+    private int id;
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @NotBlank(message = "Price cannot be blank")
-    @Min(value = 0, message = "Price cannot be 0")
+    @NotNull
+    @Min(value = 1, message = "Price must be greater than 0")
     private double price;
 
 }
